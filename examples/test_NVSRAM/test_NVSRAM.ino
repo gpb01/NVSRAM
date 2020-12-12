@@ -8,6 +8,8 @@
 #include <string.h>
 #include <NVSRAM.h>
 
+#define  WR_RD  // comment this line to READ ONLY from the NVSRAM, leave uncommented to WRITE/READ
+
 // istanziate the NVSRAM class using pin 10 as CS pin
 
 NVSRAM myNVSRAM ( 10 );
@@ -29,8 +31,13 @@ void setup() {
    //
    delay ( 500 );
    Serial.begin ( 115200 );
-   Serial.println ( "Test begin ..." );
+#ifdef WR_RD
+   Serial.println ( "Test WR_RD begin ..." );
+#else
+   Serial.println ( "Test only RD begin ..." );
+#endif
    //
+#ifdef WR_RD
    tStart = micros();
    myNVSRAM.erase();
    tEnd = micros();
@@ -43,6 +50,7 @@ void setup() {
    Serial.println( );
    //
    myNVSRAM.write ( 10, b );
+#endif
    b = 0;
    b = myNVSRAM.read ( 10 );
    Serial.print ( "Byte reading with read (expected 127): " );
@@ -52,19 +60,25 @@ void setup() {
    Serial.print ( "Byte reading with [] (expected 127): " );
    Serial.println ( b );
    //
+#ifdef WR_RD
    myNVSRAM.put ( 20, f );
+#endif
    f = 0.0;
    myNVSRAM.get ( 20, f );
    Serial.print ( "Float reading with get (expected 127.12): " );
    Serial.println ( f );
    //
+#ifdef WR_RD
    myNVSRAM.put ( 30, i );
+#endif
    i = 0;
    myNVSRAM.get ( 30, i );
    Serial.print ( "Integer reading with get (expected -127): " );
    Serial.println ( i );
    //
+#ifdef WR_RD
    myNVSRAM.put ( 40, a );
+#endif
    memset ( &a, 0x00, sizeof ( a ) );
    myNVSRAM.get ( 40, a );
    Serial.print ( "Array reading with get (expected 0..9): " );
@@ -74,7 +88,9 @@ void setup() {
    }
    Serial.println ();
    //
+#ifdef WR_RD
    myNVSRAM.put ( 50, s );
+#endif
    memset ( &s, 0x00, sizeof ( s ) );
    myNVSRAM.get ( 50, s );
    Serial.println ( "Structure reading with get ..." );
@@ -93,7 +109,7 @@ void setup() {
    Serial.println ( );
    //
    block_crc = myNVSRAM.crc ( 0, 100 );
-   Serial.print ( "CRC16 of first 100 bytes: " );
+   Serial.print ( "CRC16 of first 100 bytes (expected 17588): " );
    Serial.println ( block_crc );
    //
    Serial.println ( );
