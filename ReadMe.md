@@ -12,7 +12,7 @@ The NVSRAM is great for moving data in and out for applications, without worryin
 Microchip's battery-backed SRAM devices 23LCVxxxx have true unlimited read and write cycles, lower standby current (about 4µA), a wider voltage range and can be accessed via an SPI (or SDI) serial bus for fast data transfers.
 
 
-### Library usage and functions
+### Library usage and initialization
 
 ##### Memory selection
 
@@ -36,8 +36,6 @@ which is the configuration for the 23LCV512 (64K x 8 bit). If you want to compil
 ```
 
 
-##### Library functions
-
 To use this library you have to add, at the beginning of your program:
 
 ```
@@ -45,22 +43,31 @@ To use this library you have to add, at the beginning of your program:
 ```
 
 
-To **instantiate** the classe you have to use the NVSRAM constructor that takes two parameters: the first one is the CS pin number that you have chosen and is ++mandatory++, the second one is a boolean to indicate if you want to initialize the SPI bus or not, it is ++optional++ and its default value is **true**.
+To **instantiate** the classe you have to use the NVSRAM constructor that takes two parameters: the first one is the CS pin number that you have chosen and is ++mandatory++, the second one is a boolean to indicate if you want to initialize the SPI bus (*and configure the chip*) or not, it is ++optional++ and its default value is **true**.
 
 Example:
 
 ```
 NVSRAM myNVSRAM( 10 );
 ```
-... or, if you **don't want** to initialize the SPI bus (*since you **already do** this manually in your program*) :
+... or, if you **don't want** to initialize the SPI bus (*since you **do** this manually in your program*) :
 
 
 ```
 NVSRAM myNVSRAM( 10, false );
 ```
 
+... but, in this case (*and only in this case*), **before** using the NVSRAM, **you ++MUST++ call** the begin() method to configure the chip:
+
+
+```
+myNVSRAM.begin();
+```
+
 
 ---
+
+### Library methods
 
 ##### erase( )
 

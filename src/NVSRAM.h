@@ -33,8 +33,8 @@
   =====================================================================
 */
 
-#define NVSRAM_512
-// #define NVSRAM_1024
+// #define NVSRAM_512
+#define NVSRAM_1024
 
 /*
   =====================================================================
@@ -71,17 +71,27 @@ class NVSRAM {
          // initialize SS pin
          pinMode ( ssPin, OUTPUT );
          digitalWrite ( ssPin, HIGH );
-         // if required, initialize SPI bus
+         // if required, initialize SPI bus ...
          if ( initSPI ) {
             SPI.begin();
+            // ... and after initialize 23LCV512 memory in "Sequential mode"
+            digitalWrite ( ssPin, LOW );
+            SPI.transfer ( NVSRAM_WRMR );
+            SPI.transfer ( 0x40 );
+            digitalWrite ( ssPin, HIGH );
          }
+      };
+      
+      // NOTE: if SPI bus is initalized outside the constructor, a call to begin() method is mandatory
+      
+      void begin(void) {
          // initialize 23LCV512 memory in "Sequential mode"
          digitalWrite ( ssPin, LOW );
          SPI.transfer ( NVSRAM_WRMR );
          SPI.transfer ( 0x40 );
          digitalWrite ( ssPin, HIGH );
-      };
-      
+      }
+            
       // function to retrive the memory size
       
       uint32_t length( void ) {
