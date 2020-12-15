@@ -40,6 +40,7 @@ void setup() {
 
    // Before using the NVSRAM is necessary to initialize the SPI bus and to configure the NVSRAM chip.
    
+   SPI.begin();
    SPI.beginTransaction(SPISettings(8000000, MSBFIRST, SPI_MODE0));
    myNVSRAM.begin();
    
@@ -121,6 +122,8 @@ void setup() {
    //
    Serial.println ( );
    Serial.println ( "Test completed." );
+   //
+   SPI.endTransaction();
 }
 
 void loop() {

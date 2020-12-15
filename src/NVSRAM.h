@@ -75,10 +75,13 @@ class NVSRAM {
          if ( initSPI ) {
             SPI.begin();
             // ... and after initialize 23LCV512 memory in "Sequential mode"
+            begin();
+            /*
             digitalWrite ( ssPin, LOW );
             SPI.transfer ( NVSRAM_WRMR );
             SPI.transfer ( 0x40 );
             digitalWrite ( ssPin, HIGH );
+            */
          }
       };
       
