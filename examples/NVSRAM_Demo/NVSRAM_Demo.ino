@@ -42,7 +42,7 @@ NVSRAM myNVSRAM ( 10, false );
 
 void setup ( void ) {
    /*
-      Declare many different type of variables/structure to save/restore
+      Declares different types of variables/structure to save/restore
       Address is the NVSRAM memory address used to store data
 
       b (one byte)   start at address 0x0000
