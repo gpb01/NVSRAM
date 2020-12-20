@@ -1,5 +1,6 @@
 # NVSRAM Library
-© 2020 Guglielmo Braguglia
+© 2020 Guglielmo Braguglia - Version 1.0.0
+
 
 ---
 
@@ -18,7 +19,7 @@ Microchip's battery-backed SRAM devices 23LCVxxxx have true unlimited read and w
 
 Firts of all, you have to choose if the library should compile for 23LCV512 (64K x 8 bit - *default*) or for 23LCV1024 (128K x 8 bit). To do this, it is necessary to remove / insert a comment in front of the two-line that you can found at the beginning of the NVSRAM.h file of the library.
 
-By default, on lines 31 and 32  you have:
+By default you have:
 
 
 ```
@@ -27,7 +28,7 @@ By default, on lines 31 and 32  you have:
 ```
 
 
-which is the configuration for the 23LCV512 (64K x 8 bit). If you want to compile for the 23LCV1024 (128K x 8 bit) you have to move the comment from the second line to the first line to have:
+which is the configuration for the **23LCV512** (64K x 8 bit). If you want to compile for the 23LCV1024 (128K x 8 bit) you have to move the comment from the second line to the first line to have:
 
 
 ```
@@ -43,7 +44,7 @@ To use this library you have to add, at the beginning of your program:
 ```
 
 
-To **instantiate** the classe you have to use the NVSRAM constructor that takes two parameters: the first one is the CS pin number that you have chosen and is ++mandatory++, the second one is a boolean to indicate if you want to initialize the SPI bus (*and configure the chip*) or not, it is ++optional++ and its default value is **true**.
+To **instantiate** the classe you have to use the NVSRAM constructor that takes two parameters: the first one is the **CS** pin number that you have chosen and is ++mandatory++, the second one is a boolean to indicate if you want to initialize the SPI bus (*and configure the chip*) or not, it is ++optional++ and its default value is **true**.
 
 Example:
 
@@ -57,7 +58,7 @@ NVSRAM myNVSRAM( 10 );
 NVSRAM myNVSRAM( 10, false );
 ```
 
-... but, in this case (*and only in this case*), **before** using the NVSRAM, **you ++MUST++ call** the begin() method to configure the chip:
+... but, in this case (*and only in this case*), **before** using the NVSRAM, **you MUST call** the begin() method to configure the chip:
 
 
 ```
