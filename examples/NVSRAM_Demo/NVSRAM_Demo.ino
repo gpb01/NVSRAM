@@ -2,10 +2,12 @@
 
    Sample usage of NVSRAM library with different Arduino data types.
    Guglielmo Braguglia - Dec. 2020
+   
+   Please, verify that you have selected the correct memory chip
+   you are using, inside the library.
 
 */
 
-#include <string.h>
 #include <NVSRAM.h>
 
 /*
@@ -41,6 +43,7 @@ NVSRAM myNVSRAM ( 10, false );
 void setup ( void ) {
    /*
       Declare many different type of variables/structure to save/restore
+      Address is the NVSRAM memory address used to store data
 
       b (one byte)   start at address 0x0000
       i (two bytes)  start at address 0x0001
@@ -49,15 +52,15 @@ void setup ( void ) {
       s (17 bytes)   start at address 0x0011
 
    */
-   byte  b = 127;
-   int   i = -127;
-   float f = 127.12;
-   byte  a[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+   byte  b = 0;
+   int   i = 0;
+   float f = 0.0;
+   byte  a[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
    struct myStruct {
-      byte  by = 127;
-      int   in = -127;
-      float fl = 127.12;
-      byte  ar[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+      byte  by = 0;
+      int   in = 0;
+      float fl = 0.0;
+      byte  ar[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
    } s;
 
    unsigned long tStart = 0, tEnd = 0;
@@ -103,11 +106,11 @@ void setup ( void ) {
 
 #ifdef WR_RD
 
+   b = 127;
    myNVSRAM.write ( 0x0000, b );
 
 #endif
 
-   b = 0;
    b = myNVSRAM.read ( 0x0000 );
    Serial.print ( "Byte b reading with read (expected 127): " );
    Serial.println ( b );
@@ -118,33 +121,33 @@ void setup ( void ) {
 
 #ifdef WR_RD
 
+   i = -127;
    myNVSRAM.put ( 0x0001, i );
 
 #endif
 
-   i = 0;
    myNVSRAM.get ( 0x0001, i );
    Serial.print ( "Integer i reading with get (expected -127): " );
    Serial.println ( i );
 
 #ifdef WR_RD
 
+   f = 127.12;
    myNVSRAM.put ( 0x0003, f );
 
 #endif
 
-   f = 0.0;
    myNVSRAM.get ( 0x0003, f );
    Serial.print ( "Float f reading with get (expected 127.12): " );
    Serial.println ( f );
 
 #ifdef WR_RD
 
+   for ( j = 0; j < 10; j++) a[j] = j;
    myNVSRAM.put ( 0x0007, a );
 
 #endif
 
-   memset ( a, 0x00, sizeof ( a ) );
    myNVSRAM.get ( 0x0007, a );
    Serial.print ( "Array a reading with get (expected 0..9): " );
    for ( j = 0; j < 10; j++ ) {
@@ -155,11 +158,14 @@ void setup ( void ) {
 
 #ifdef WR_RD
 
+   s.by = 127;
+   s.in = -127;
+   s.fl = 127.12;
+   for ( j = 0; j < 10; j++) s.ar[j] = j;
    myNVSRAM.put ( 0x0011, s );
 
 #endif
 
-   memset ( &s, 0x00, sizeof ( s ) );
    myNVSRAM.get ( 0x0011, s );
    Serial.println ( "Structure s reading with get ..." );
    Serial.print ( "  - byte by value (expected 127): " );
