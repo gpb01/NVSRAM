@@ -1,8 +1,11 @@
 /*
+
   NVSRAM.h - Library for Microchip 23LCV512 (64 KB) and 23LCV1024 (128 KB)
              battery-backed SPI RAM memories.
   
   Copyright (c) 2020 Guglielmo Braguglia.  All right reserved.
+  
+  ---------------------------------------------------------------------
   
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -15,6 +18,7 @@
   You should have received a copy of the GNU Lesser General Public
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  
 */
 
 #ifndef NVSRAM_h
@@ -28,7 +32,7 @@
 /*
   =====================================================================
   
-          Unncoment ONLY the NVSRAM model you are compiling for
+          Uncomment ONLY the NVSRAM model you are compiling for
   
   =====================================================================
 */
