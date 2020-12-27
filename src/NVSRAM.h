@@ -81,7 +81,7 @@ class NVSRAM {
             // ... and after initialize 23LCV512 memory in "Sequential mode"
             begin();
          }
-      };
+      }
       
       // NOTE: if SPI bus is initalized outside the constructor, a call to begin() method is mandatory
       
@@ -131,7 +131,7 @@ class NVSRAM {
          value = SPI.transfer ( 0x00 );
          digitalWrite ( ssPin, HIGH );
          return value;
-      };
+      }
 
       void write ( uint16_t addr, uint8_t value ) {
          digitalWrite ( ssPin, LOW );
@@ -139,11 +139,11 @@ class NVSRAM {
          SPI.transfer16 ( addr );
          SPI.transfer ( value );
          digitalWrite ( ssPin, HIGH );
-      };
+      }
 
       void update ( uint16_t addr, uint8_t value ) {
          write ( addr, value );
-      };
+      }
 
       // get/put functions
 
@@ -156,7 +156,7 @@ class NVSRAM {
          SPI.transfer ( ( void* ) &t, t_size );
          digitalWrite ( ssPin, HIGH );
          return t;
-      };
+      }
 
       template< typename T > const T &put ( uint16_t addr, const T &t ) {
          uint16_t t_size = sizeof ( T );
@@ -213,7 +213,7 @@ class NVSRAM {
          value = SPI.transfer ( 0x00 );
          digitalWrite ( ssPin, HIGH );
          return value;
-      };
+      }
 
       void write ( uint32_t addr, uint8_t value ) {
          mem_addr.addr_32 = ( addr & NVSRAM_MAX );
@@ -225,11 +225,11 @@ class NVSRAM {
          SPI.transfer ( mem_addr.addr_byte[0] );
          SPI.transfer ( value );
          digitalWrite ( ssPin, HIGH );
-      };
+      }
 
       void update ( uint32_t addr, uint8_t value ) {
          write ( addr, value );
-      };
+      }
 
       // get/put functions
 
@@ -246,7 +246,7 @@ class NVSRAM {
          SPI.transfer ( ( void* ) &t, t_size );
          digitalWrite ( ssPin, HIGH );
          return t;
-      };
+      }
 
       template< typename T > const T &put ( uint32_t addr, const T &t ) {
          uint32_t t_size = sizeof ( T );
